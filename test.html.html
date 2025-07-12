@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bilo_Apple - متجر آيفون</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Tajawal', 'Inter', sans-serif;
+      background: var(--bg, #f5f5f7);
+      color: var(--text, #1d1d1f);
+      line-height: 1.7;
+      transition: background 0.4s, color 0.4s;
+      direction: rtl;
+    }
+    :root {
+      --bg: #f5f5f7;
+      --text: #1d1d1f;
+      --header-bg: #000;
+      --header-text: #fff;
+      --card-bg: #fff;
+      --card-shadow: 0 4px 16px rgba(0,0,0,0.07);
+      --primary: #0071e3;
+      --primary-hover: #005bb5;
+      --footer-bg: #000;
+      --footer-text: #fff;
+      --feature-bg: #fff;
+    }
+    body.dark {
+      --bg: #181824;
+      --text: #f5f5f7;
+      --header-bg: #232336;
+      --header-text: #fff;
+      --card-bg: #232336;
+      --card-shadow: 0 4px 24px rgba(0,0,0,0.18);
+      --primary: #4f8cff;
+      --primary-hover: #2563eb;
+      --footer-bg: #232336;
+      --footer-text: #fff;
+      --feature-bg: #232336;
+    }
+    header {
+      background: var(--header-bg);
+      color: var(--header-text);
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+    header h1 {
+      font-size: 2rem;
+      letter-spacing: 1px;
+      font-weight: bold;
+    }
+    nav a {
+      color: var(--header-text);
+      text-decoration: none;
+      margin-left: 2rem;
+      font-weight: bold;
+      font-size: 1.1rem;
+      transition: color 0.2s;
+    }
+    nav a:hover {
+      color: var(--primary);
+    }
+    .toggle-dark {
+      background: var(--card-bg);
+      color: var(--primary);
+      border: 1px solid var(--primary);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.3rem;
+      margin-right: 1rem;
+      transition: background 0.3s, color 0.3s;
+    }
+    .toggle-dark:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+    .hero {
+      text-align: center;
+      padding: 5rem 2rem 3rem 2rem;
+      background: var(--card-bg);
+      border-radius: 0 0 32px 32px;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero h2 {
+      font-size: 2.8rem;
+      margin-bottom: 1.2rem;
+      font-weight: bold;
+      color: var(--primary);
+      letter-spacing: 1px;
+    }
+    .hero p {
+      font-size: 1.3rem;
+      color: var(--text);
+      margin-bottom: 2.2rem;
+    }
+    .hero img {
+      max-width: 340px;
+      width: 100%;
+      height: auto;
+      margin-bottom: 2.2rem;
+      border-radius: 24px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+      border: 2px solid var(--primary);
+    }
+    .btn {
+      background: var(--primary);
+      color: white;
+      padding: 1rem 2.5rem;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: background 0.3s, transform 0.2s;
+      margin-top: 0.5rem;
+    }
+    .btn:hover {
+      background: var(--primary-hover);
+      transform: scale(1.05);
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2.5rem;
+      padding: 3rem 2rem 2rem 2rem;
+      background: var(--bg);
+      margin-bottom: 2.5rem;
+    }
+    .feature {
+      background: var(--feature-bg);
+      padding: 2.2rem 1.2rem;
+      border-radius: 18px;
+      text-align: center;
+      box-shadow: var(--card-shadow);
+      transition: box-shadow 0.3s, transform 0.3s;
+      position: relative;
+    }
+    .feature h3 {
+      margin-bottom: 0.7rem;
+      font-size: 1.3rem;
+      color: var(--primary);
+      font-weight: bold;
+    }
+    .feature p {
+      color: var(--text);
+      font-size: 1.1rem;
+    }
+    .feature:hover {
+      box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+      transform: translateY(-8px) scale(1.04);
+    }
+    .products {
+      padding: 3rem 2rem 2rem 2rem;
+      background: var(--card-bg);
+      border-radius: 32px;
+      margin-bottom: 2.5rem;
+      box-shadow: var(--card-shadow);
+    }
+    .products h2 {
+      color: var(--primary);
+      margin-bottom: 2rem;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .product-card {
+      background: var(--bg);
+      border-radius: 16px;
+      padding: 2rem 1rem 1.5rem 1rem;
+      text-align: center;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: box-shadow 0.3s, transform 0.3s;
+      position: relative;
+    }
+    .product-card img {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      margin-bottom: 1rem;
+      border-radius: 12px;
+      border: 1px solid #eee;
+      background: #fff;
+    }
+    .product-card h4 {
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+      color: var(--primary);
+      font-weight: bold;
+    }
+    .product-card .price {
+      color: var(--primary);
+      font-weight: bold;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+    .product-card .btn {
+      margin-top: auto;
+    }
+    .product-card:hover {
+      box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+      transform: translateY(-8px) scale(1.04);
+    }
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.4);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal.active {
+      display: flex;
+    }
+    .modal-content {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 2rem 2.5rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+      text-align: center;
+      max-width: 90vw;
+      min-width: 280px;
+      position: relative;
+      animation: popIn 0.4s cubic-bezier(.4,0,.2,1);
+      color: var(--text);
+    }
+    @keyframes popIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .modal-content .close {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: #888;
+      cursor: pointer;
+    }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(.4,0,.2,1), transform 0.8s cubic-bezier(.4,0,.2,1);
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: none;
+    }
+    /* Testimonials */
+    .testimonials {
+      background: var(--bg);
+      padding: 3rem 2rem 2rem 2rem;
+      margin-bottom: 2.5rem;
+    }
+    .testimonials h2 {
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+    .testimonial-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .testimonial {
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: var(--card-shadow);
+      padding: 1.5rem 1.2rem;
+      text-align: right;
+      font-size: 1.1rem;
+      color: var(--text);
+      position: relative;
+    }
+    .testimonial:before {
+      content: '"';
+      font-size: 2.5rem;
+      color: var(--primary);
+      position: absolute;
+      top: 0.5rem;
+      right: 1rem;
+    }
+    .testimonial .author {
+      display: block;
+      margin-top: 1rem;
+      color: #888;
+      font-size: 1rem;
+      font-weight: bold;
+      text-align: left;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: var(--footer-bg);
+      color: var(--footer-text);
+      border-radius: 32px 32px 0 0;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+    }
+    .intro {
+      background: linear-gradient(120deg, #e0e7ff 0%, #f5f5f7 100%);
+      padding: 3rem 2rem 2rem 2rem;
+      border-radius: 0 0 32px 32px;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    }
+    .intro-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .intro-text {
+      flex: 1 1 320px;
+      min-width: 260px;
+    }
+    .intro-text h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      font-weight: bold;
+    }
+    .intro-text p {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+    .intro-img {
+      flex: 1 1 260px;
+      min-width: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .intro-img img {
+      width: 260px;
+      max-width: 100%;
+      border-radius: 24px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+      border: 2px solid var(--primary);
+    }
+    .feature .icon {
+      display: block;
+      margin: 0 auto 0.7rem auto;
+    }
+    .btn:active {
+      box-shadow: 0 2px 16px rgba(0,113,227,0.18);
+      transform: scale(0.98);
+    }
+    /* زر الدردشة العائم */
+    .chat-fab {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 1200;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .chat-fab:hover {
+      background: var(--primary-hover);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.22);
+    }
+    .chat-window {
+      position: fixed;
+      bottom: 100px;
+      right: 32px;
+      width: 320px;
+      max-width: 95vw;
+      background: var(--card-bg);
+      color: var(--text);
+      border-radius: 18px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      z-index: 1300;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      animation: popIn 0.3s;
+    }
+    .chat-window.active {
+      display: flex;
+    }
+    .chat-header {
+      background: var(--primary);
+      color: #fff;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+    .chat-header button {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+    .chat-body {
+      padding: 1rem;
+      font-size: 1rem;
+      min-height: 60px;
+      background: var(--card-bg);
+    }
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #eee;
+      background: var(--bg);
+    }
+    .chat-input input {
+      flex: 1;
+      border: none;
+      padding: 0.7rem 1rem;
+      font-size: 1rem;
+      background: transparent;
+      color: var(--text);
+      outline: none;
+    }
+    .chat-input button {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 0 1.2rem;
+      font-size: 1.2rem;
+      cursor: pointer;
+      border-radius: 0 0 18px 0;
+      transition: background 0.2s;
+    }
+    .chat-input button:hover {
+      background: var(--primary-hover);
+    }
+    @media (max-width: 900px) {
+      .intro-content { flex-direction: column; gap: 1.5rem; text-align: center; }
+      .intro-img { justify-content: center; }
+    }
+    @media (max-width: 600px) {
+      .hero h2 { font-size: 2rem; }
+      .features, .products, .testimonials, .intro { padding: 1.5rem 0.5rem; }
+      header { flex-direction: column; gap: 1rem; }
+      nav a { margin-left: 1rem; font-size: 1rem; }
+      .intro-img img { width: 180px; }
+      .chat-window {
+        right: 8px;
+        width: 98vw;
+        bottom: 80px;
+      }
+      .chat-fab {
+        right: 12px;
+        bottom: 12px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display:flex;align-items:center;gap:1rem;">
+      <span style="font-size:2rem; color:var(--primary);"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;"><path d="M12 2C13.1046 2 14 2.89543 14 4V5.5C14 6.32843 13.3284 7 12.5 7H11.5C10.6716 7 10 6.32843 10 5.5V4C10 2.89543 10.8954 2 12 2Z" fill="currentColor"/><rect x="4" y="8" width="16" height="12" rx="4" fill="currentColor" opacity="0.2"/><rect x="6" y="10" width="12" height="8" rx="2" fill="currentColor"/></svg></span>
+      <button class="toggle-dark" id="toggleDark" title="تبديل الوضع الليلي">🌙</button>
+      <h1>Bilo_Apple</h1>
+    </div>
+    <nav>
+      <a href="#intro">الرئيسية</a>
+      <a href="#features">المميزات</a>
+      <a href="#products">المنتجات</a>
+      <a href="#testimonials">آراء العملاء</a>
+      <a href="#contact">تواصل معنا</a>
+    </nav>
+  </header>
+
+  <!-- تعريف جذاب بالموقع -->
+  <section class="intro fade-in" id="intro">
+    <div class="intro-content">
+      <div class="intro-text">
+        <h2>مرحبًا بك في <span style="color:var(--primary)">Bilo_Apple</span></h2>
+        <p>أفضل متجر إلكتروني متخصص في بيع أجهزة آيفون الأصلية والإكسسوارات المعتمدة. نضمن لك تجربة تسوق آمنة، توصيل سريع، وأسعار منافسة. اكتشف أحدث الإصدارات والعروض الحصرية الآن!</p>
+        <a href="#products" class="btn">تصفح المنتجات</a>
+      </div>
+      <div class="intro-img">
+        <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=500&q=80" alt="آيفون عصري" />
+      </div>
+    </div>
+  </section>
+
+  <section class="hero fade-in" id="hero">
+    <h2>اكتشف آيفون 15 الجديد</h2>
+    <p>تصميم متطور. أداء خارق. نظام كاميرا احترافي. متوفر الآن بأحدث التقنيات.</p>
+    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80" alt="آيفون 15 جديد وجذاب">
+    <br>
+    <button class="btn buy-btn" data-product="آيفون 15">اشتري الآن</button>
+  </section>
+
+  <section class="features fade-in" id="features">
+    <div class="feature">
+      <span class="icon"><svg width="36" height="36" fill="none" viewBox="0 0 24 24"><path d="M12 2C13.1046 2 14 2.89543 14 4V5.5C14 6.32843 13.3284 7 12.5 7H11.5C10.6716 7 10 6.32843 10 5.5V4C10 2.89543 10.8954 2 12 2Z" fill="#0071e3"/><rect x="4" y="8" width="16" height="12" rx="4" fill="#0071e3" opacity="0.2"/><rect x="6" y="10" width="12" height="8" rx="2" fill="#0071e3"/></svg></span>
+      <h3>الجزيرة الديناميكية</h3>
+      <p>تجمع الإشعارات والأنشطة في مكان تفاعلي واحد بطريقة سلسة.</p>
+    </div>
+    <div class="feature">
+      <span class="icon"><svg width="36" height="36" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#0071e3" opacity="0.2"/><path d="M8 12l2 2 4-4" stroke="#0071e3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <h3>شريحة A16 Bionic</h3>
+      <p>أداء قوي يجعل كل شيء أسرع وأكثر سلاسة.</p>
+    </div>
+    <div class="feature">
+      <span class="icon"><svg width="36" height="36" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#0071e3" opacity="0.2"/><path d="M12 8v4l3 3" stroke="#0071e3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <h3>كاميرا احترافية</h3>
+      <p>التقط صورًا مذهلة في جميع ظروف الإضاءة بتقنيات متقدمة.</p>
+    </div>
+    <div class="feature">
+      <span class="icon"><svg width="36" height="36" fill="none" viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="10" rx="5" fill="#0071e3" opacity="0.2"/><rect x="7" y="10" width="10" height="4" rx="2" fill="#0071e3"/></svg></span>
+      <h3>بطارية تدوم طوال اليوم</h3>
+      <p>بطارية قوية تواكب نمط حياتك النشط.</p>
+    </div>
+  </section>
+
+  <section class="products fade-in" id="products">
+    <h2>منتجاتنا</h2>
+    <div class="product-list">
+      <div class="product-card">
+        <img src="https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-15-pro-model-unselect-gallery-1-202309?wid=512&hei=512&fmt=jpeg&qlt=95&.v=1692829090476" alt="آيفون 15 برو">
+        <h4>آيفون 15 برو</h4>
+        <p class="price">999$</p>
+        <button class="btn buy-btn" data-product="آيفون 15 برو">اشتري الآن</button>
+      </div>
+      <div class="product-card">
+        <img src="https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-15-model-unselect-gallery-1-202309?wid=512&hei=512&fmt=jpeg&qlt=95&.v=1692829090476" alt="آيفون 15">
+        <h4>آيفون 15</h4>
+        <p class="price">799$</p>
+        <button class="btn buy-btn" data-product="آيفون 15">اشتري الآن</button>
+      </div>
+      <div class="product-card">
+        <img src="https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-14-model-unselect-gallery-1-202209?wid=512&hei=512&fmt=jpeg&qlt=95&.v=1661027786770" alt="آيفون 14">
+        <h4>آيفون 14</h4>
+        <p class="price">699$</p>
+        <button class="btn buy-btn" data-product="آيفون 14">اشتري الآن</button>
+      </div>
+      <div class="product-card">
+        <img src="https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-model-unselect-gallery-1-202207?wid=512&hei=512&fmt=jpeg&qlt=95&.v=1654893618126" alt="آيفون 13">
+        <h4>آيفون 13</h4>
+        <p class="price">599$</p>
+        <button class="btn buy-btn" data-product="آيفون 13">اشتري الآن</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials fade-in" id="testimonials">
+    <h2>آراء عملائنا</h2>
+    <div class="testimonial-list">
+      <div class="testimonial">
+        أفضل تجربة شراء عبر الإنترنت! التوصيل كان سريعًا والجهاز أصلي 100%.
+        <span class="author">— محمد من الجزائر</span>
+      </div>
+      <div class="testimonial">
+        خدمة عملاء ممتازة وأسعار منافسة. أنصح الجميع بالتعامل مع آي شوب.
+        <span class="author">— سارة من المغرب</span>
+      </div>
+      <div class="testimonial">
+        الموقع سهل الاستخدام والمنتجات أصلية. سأكرر الشراء بالتأكيد.
+        <span class="author">— أحمد من السعودية</span>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div style="margin-bottom:1.2rem; font-weight:bold; font-size:1.1rem;">العنوان: الجزائر العاصمة، شارع الجمهورية، مبنى 12</div>
+    <div style="max-width: 100%; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin-bottom:1.2rem;">
+      <iframe src="https://www.google.com/maps?q=36.7538,3.0588&z=15&output=embed" width="100%" height="220" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    &copy; 2025 Bilo_Apple. جميع الحقوق محفوظة.
+  </footer>
+
+  <div class="modal" id="buyModal">
+    <div class="modal-content">
+      <button class="close" id="closeModal">&times;</button>
+      <h2 id="modalTitle">شكرًا لاهتمامك!</h2>
+      <p id="modalDesc">شراء <span id="modalProduct">آيفون</span> سيكون متاحًا قريبًا.</p>
+    </div>
+  </div>
+
+  <!-- زر الدردشة العائم ونافذة الدردشة -->
+  <button class="chat-fab" id="chatFab" title="دردشة المساعدة">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#0071e3"/></svg>
+  </button>
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-header">
+      دردشة المساعدة
+      <button id="closeChat">&times;</button>
+    </div>
+    <div class="chat-body" id="chatBody">
+      مرحبًا 👋! كيف يمكنني مساعدتك اليوم؟
+    </div>
+    <form class="chat-input" id="chatForm" autocomplete="off">
+      <input type="text" id="chatMessage" placeholder="اكتب رسالتك هنا..." />
+      <button type="submit">إرسال</button>
+    </form>
+  </div>
+
+  <script>
+    // Fade-in animation on scroll
+    function revealOnScroll() {
+      document.querySelectorAll('.fade-in').forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 60) {
+          el.classList.add('visible');
+        }
+      });
+    }
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('DOMContentLoaded', () => {
+      revealOnScroll();
+      // Smooth scroll for nav links
+      document.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('click', function(e) {
+          const href = this.getAttribute('href');
+          if (href.startsWith('#')) {
+            e.preventDefault();
+            document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      });
+      // Modal logic for Buy Now buttons
+      const modal = document.getElementById('buyModal');
+      const closeModal = document.getElementById('closeModal');
+      const modalProduct = document.getElementById('modalProduct');
+      document.querySelectorAll('.buy-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          modalProduct.textContent = btn.dataset.product;
+          modal.classList.add('active');
+        });
+      });
+      closeModal.addEventListener('click', () => {
+        modal.classList.remove('active');
+      });
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.classList.remove('active');
+      });
+      // Dark mode toggle
+      const toggleDark = document.getElementById('toggleDark');
+      toggleDark.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        toggleDark.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+      });
+    });
+    // زر الدردشة العائم
+    const chatFab = document.getElementById('chatFab');
+    const chatWindow = document.getElementById('chatWindow');
+    const closeChat = document.getElementById('closeChat');
+    chatFab.addEventListener('click', () => {
+      chatWindow.classList.toggle('active');
+    });
+    closeChat.addEventListener('click', () => {
+      chatWindow.classList.remove('active');
+    });
+    // محاكاة إرسال رسالة (واجهة فقط)
+    const chatForm = document.getElementById('chatForm');
+    const chatBody = document.getElementById('chatBody');
+    chatForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const msg = document.getElementById('chatMessage').value.trim();
+      if(msg) {
+        chatBody.innerHTML += `<div style='margin:8px 0;text-align:right;'><span style='background:var(--primary);color:#fff;padding:6px 14px;border-radius:12px 0 12px 12px;display:inline-block;'>${msg}</span></div>`;
+        document.getElementById('chatMessage').value = '';
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }
+    });
+  </script>
+</body>
+</html>
